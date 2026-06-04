@@ -17,7 +17,7 @@ export default function RetroTV() {
     }, 400)
   }
 
-  const handleKnobClick = (direction: 'prev' | 'next') => {
+  const handleKnob = (direction: 'prev' | 'next') => {
     const next = direction === 'next'
       ? (activeChannel + 1) % CHANNELS.length
       : (activeChannel - 1 + CHANNELS.length) % CHANNELS.length
@@ -26,44 +26,52 @@ export default function RetroTV() {
 
   return (
     <div className={styles.tv}>
-      {/* TV body */}
       <div className={styles.body}>
-        {/* CRT bezel + screen */}
-        <div className={styles.bezel}>
-          <CRTScreen isSwitching={isSwitching}>
-            <ChannelContent channel={CHANNELS[activeChannel]} />
-          </CRTScreen>
+
+        {/* Left — screen */}
+        <div className={styles.screenPanel}>
+          <div className={styles.bezel}>
+            <CRTScreen isSwitching={isSwitching}>
+              <ChannelContent channel={CHANNELS[activeChannel]} />
+            </CRTScreen>
+          </div>
         </div>
 
-        {/* Channel indicator */}
-        <div className={styles.channelBadge}>
-          CH {(activeChannel + 1).toString().padStart(2, '0')}
-        </div>
+        {/* Right — control panel */}
+        <div className={styles.controlPanel}>
+          {/* LED channel display */}
+          <div className={styles.channelDisplay}>
+            CH {(activeChannel + 1).toString().padStart(2, '0')}
+          </div>
 
-        {/* Controls */}
-        <div className={styles.controls}>
-          <button
-            className={styles.knob}
-            onClick={() => handleKnobClick('prev')}
-            aria-label="Previous channel"
-          />
-          <div className={styles.speaker}>
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className={styles.speakerDot} />
+          {/* Knob: prev channel */}
+          <div className={styles.knobGroup}>
+            <button
+              className={styles.knob}
+              onClick={() => handleKnob('prev')}
+              aria-label="Previous channel"
+            />
+            <span className={styles.knobLabel}>CH ▲</span>
+          </div>
+
+          {/* Knob: next channel */}
+          <div className={styles.knobGroup}>
+            <button
+              className={styles.knob}
+              onClick={() => handleKnob('next')}
+              aria-label="Next channel"
+            />
+            <span className={styles.knobLabel}>CH ▼</span>
+          </div>
+
+          {/* Decorative dots */}
+          <div className={styles.decorRow}>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className={styles.decorDot} />
             ))}
           </div>
-          <button
-            className={styles.knob}
-            onClick={() => handleKnobClick('next')}
-            aria-label="Next channel"
-          />
         </div>
-      </div>
 
-      {/* TV legs */}
-      <div className={styles.legs}>
-        <div className={styles.leg} />
-        <div className={styles.leg} />
       </div>
     </div>
   )

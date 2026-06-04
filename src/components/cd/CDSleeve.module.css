@@ -2,6 +2,8 @@
   position: relative;
   flex-shrink: 0;
   width: 200px;
+  /* padding-bottom reserves space for the CTA so it stays inside the hover zone */
+  padding-bottom: 38px;
   transition: transform var(--transition-med);
   transform-style: preserve-3d;
 }
@@ -112,7 +114,7 @@
 /* ── Hover CTA ── */
 .cta {
   position: absolute;
-  bottom: -36px;
+  bottom: 0;
   left: 0;
   right: 0;
   text-align: center;

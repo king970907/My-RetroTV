@@ -5,24 +5,30 @@
   align-items: center;
   justify-content: center;
   background: var(--color-bg);
-  /* Subtle radial ambient light from center */
-  background-image: radial-gradient(ellipse 80% 60% at 50% 50%, #1a1206 0%, #0a0a0a 70%);
-  overflow: hidden;
+  background-image: radial-gradient(ellipse 70% 55% at 50% 52%, #121008 0%, #0a0a0a 65%);
+  /* allow fixed-position CDCase modal to escape without clipping the scene */
+  overflow: visible;
 }
 
-.furniture {
+/* ── Horizontal stage: [TV+player] [CD case] ── */
+.stage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 28px;
+}
+
+/* ── TV unit: TV body stacked on top of CD player ── */
+.tvUnit {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2rem;
+  align-items: stretch;
+  gap: 6px;
+  /* width is driven by RetroTV's --tv-width (540px); CDPlayer uses width:100% */
 }
 
-.tvSlot {
-  /* TV sits on top */
-}
-
-.shelf {
-  display: flex;
-  align-items: flex-end;
-  gap: 3rem;
+/* ── CD binder slot ── */
+.caseSlot {
+  /* align bottom with the CDPlayer bottom edge */
+  padding-bottom: 0;
 }

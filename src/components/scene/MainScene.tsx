@@ -6,17 +6,19 @@ import styles from './MainScene.module.css'
 export default function MainScene() {
   return (
     <div className={styles.scene}>
-      <div className={styles.furniture}>
-        {/* TV unit — center top */}
-        <div className={styles.tvSlot}>
+      <div className={styles.stage}>
+
+        {/* TV + CDPlayer stacked as one unit */}
+        <div className={styles.tvUnit}>
           <RetroTV />
+          <CDPlayer />
         </div>
 
-        {/* Bottom shelf: CD Player left, CD Case right */}
-        <div className={styles.shelf}>
-          <CDPlayer />
+        {/* CD binder — beside, aligned to bottom of the unit */}
+        <div className={styles.caseSlot}>
           <CDCase />
         </div>
+
       </div>
     </div>
   )
