@@ -122,11 +122,19 @@
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   color: var(--color-crt-amber);
-  text-decoration: none;
   padding: 6px;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.75);
+  border: none;
   border-radius: 0 0 4px 4px;
+  cursor: pointer;
+  width: 100%;
   animation: fadeUp 200ms ease forwards;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.cta:hover {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
 }
 
 @keyframes fadeUp {

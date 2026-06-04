@@ -1,9 +1,14 @@
 import { useRef, useState } from 'react'
 import CDSleeve from './CDSleeve'
 import { PROJECTS } from '@/data/projects'
+import type { Project } from '@/data/projects'
 import styles from './CDCase.module.css'
 
-export default function CDCase() {
+interface Props {
+  onProjectSelect: (project: Project) => void
+}
+
+export default function CDCase({ onProjectSelect }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [dragStartX, setDragStartX] = useState(0)
   const [scrollOffset, setScrollOffset] = useState(0)
@@ -23,9 +28,13 @@ export default function CDCase() {
     isDragging.current = false
   }
 
+  const handleProjectSelect = (project: Project) => {
+    setIsOpen(false)
+    onProjectSelect(project)
+  }
+
   return (
     <div className={styles.wrapper}>
-      {/* Closed state — binder cover */}
       {!isOpen && (
         <button className={styles.binder} onClick={() => setIsOpen(true)}>
           <span className={styles.binderLabel}>PORTFOLIO</span>
@@ -33,7 +42,6 @@ export default function CDCase() {
         </button>
       )}
 
-      {/* Open state — 3D carousel */}
       {isOpen && (
         <div className={styles.carousel}>
           <div
@@ -50,6 +58,7 @@ export default function CDCase() {
                 project={project}
                 index={i}
                 total={PROJECTS.length}
+                onSelect={handleProjectSelect}
               />
             ))}
           </div>

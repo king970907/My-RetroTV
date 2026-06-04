@@ -1,22 +1,27 @@
+import { useState } from 'react'
 import RetroTV from '@/components/tv/RetroTV'
 import CDPlayer from '@/components/cd/CDPlayer'
 import CDCase from '@/components/cd/CDCase'
+import type { Project } from '@/data/projects'
 import styles from './MainScene.module.css'
 
 export default function MainScene() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+
   return (
     <div className={styles.scene}>
       <div className={styles.stage}>
 
-        {/* TV + CDPlayer stacked as one unit */}
         <div className={styles.tvUnit}>
-          <RetroTV />
+          <RetroTV
+            selectedProject={selectedProject}
+            onProjectClose={() => setSelectedProject(null)}
+          />
           <CDPlayer />
         </div>
 
-        {/* CD binder — beside, aligned to bottom of the unit */}
         <div className={styles.caseSlot}>
-          <CDCase />
+          <CDCase onProjectSelect={setSelectedProject} />
         </div>
 
       </div>

@@ -6,12 +6,12 @@ interface Props {
   project: Project
   index: number
   total: number
+  onSelect: (project: Project) => void
 }
 
-export default function CDSleeve({ project, index, total }: Props) {
+export default function CDSleeve({ project, index, total, onSelect }: Props) {
   const [isHovered, setIsHovered] = useState(false)
 
-  /* Slight perspective tilt based on position in carousel */
   const center = (total - 1) / 2
   const offset = index - center
   const rotateY = offset * -8
@@ -46,17 +46,14 @@ export default function CDSleeve({ project, index, total }: Props) {
         </div>
       </div>
 
-      {/* Hover CTA */}
+      {/* Hover CTA — sends project up, does not open URL directly */}
       {isHovered && (
-        <a
+        <button
           className={styles.cta}
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={e => e.stopPropagation()}
+          onClick={() => onSelect(project)}
         >
           VIEW PROJECT →
-        </a>
+        </button>
       )}
     </div>
   )

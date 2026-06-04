@@ -1,0 +1,65 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px 22px;
+  background: #020a02;
+  font-family: var(--font-retro);
+  color: var(--color-crt-white);
+}
+
+.tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--color-crt-amber);
+  opacity: 0.8;
+}
+
+.title {
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--color-crt-green);
+  letter-spacing: 0.05em;
+  font-weight: normal;
+}
+
+.description {
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--color-crt-white);
+  opacity: 0.75;
+  max-width: 36ch;
+}
+
+.techList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.techTag {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--color-crt-green);
+  border: 1px solid rgba(57, 255, 20, 0.3);
+  border-radius: 2px;
+  padding: 2px 7px;
+  opacity: 0.85;
+}
+
+/* Blinking prompt at the bottom */
+.cta {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--color-crt-amber);
+  margin-top: auto;
+  animation: blink 1.1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
