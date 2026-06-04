@@ -6,29 +6,27 @@
   justify-content: center;
   background: var(--color-bg);
   background-image: radial-gradient(ellipse 70% 55% at 50% 52%, #121008 0%, #0a0a0a 65%);
-  /* allow fixed-position CDCase modal to escape without clipping the scene */
   overflow: visible;
 }
 
-/* ── Horizontal stage: [TV+player] [CD case] ── */
+/* ── Stage — receives mouse-tilt + scroll-scale transforms via JS ── */
 .stage {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   gap: 28px;
+  will-change: transform;
 }
 
-/* ── TV unit: TV body stacked on top of CD player ── */
+/* ── TV unit ── */
 .tvUnit {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 6px;
-  /* width is driven by RetroTV's --tv-width (540px); CDPlayer uses width:100% */
 }
 
 /* ── CD binder slot ── */
 .caseSlot {
-  /* align bottom with the CDPlayer bottom edge */
   padding-bottom: 0;
 }

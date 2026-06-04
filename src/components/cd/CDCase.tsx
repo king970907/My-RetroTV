@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import CDSleeve from './CDSleeve'
 import { PROJECTS } from '@/data/projects'
 import type { Project } from '@/data/projects'
@@ -42,7 +43,7 @@ export default function CDCase({ onProjectSelect }: Props) {
         </button>
       )}
 
-      {isOpen && (
+      {isOpen && createPortal(
         <div className={styles.carousel}>
           <div
             className={styles.track}
@@ -65,7 +66,8 @@ export default function CDCase({ onProjectSelect }: Props) {
           <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
             ✕
           </button>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )
