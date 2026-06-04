@@ -1,0 +1,123 @@
+.player {
+  background: #1c1c1c;
+  border-radius: 8px;
+  padding: 16px 20px;
+  min-width: 200px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 6px 24px rgba(0,0,0,0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-retro);
+}
+
+.brand {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: #666;
+  text-align: right;
+}
+
+.trayArea {
+  background: #0a0a0a;
+  border-radius: 4px;
+  height: 64px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tray {
+  position: absolute;
+  inset: 0;
+  background: #141414;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(0);
+  transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tray.open {
+  transform: translateX(40%);
+}
+
+.disc {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #c0c0c0, #e8e8e8, #a0a0a0, #d0d0d0, #c0c0c0
+  );
+  box-shadow: 0 0 8px rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disc.spinning {
+  animation: spin 2s linear infinite;
+}
+
+.discCenter {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1c1c1c;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.display {
+  background: #0a1a0a;
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  color: var(--color-crt-green);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid #0a2a0a;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.btn {
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  color: #aaa;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.btn:hover {
+  background: #3a3a3a;
+  color: #fff;
+}
+
+.btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.playBtn {
+  color: var(--color-crt-green);
+}
+
+.playBtn:not(:disabled):hover {
+  background: #0a2a0a;
+  color: var(--color-crt-green);
+}

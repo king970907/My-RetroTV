@@ -1,0 +1,28 @@
+.scene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  /* Subtle radial ambient light from center */
+  background-image: radial-gradient(ellipse 80% 60% at 50% 50%, #1a1206 0%, #0a0a0a 70%);
+  overflow: hidden;
+}
+
+.furniture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.tvSlot {
+  /* TV sits on top */
+}
+
+.shelf {
+  display: flex;
+  align-items: flex-end;
+  gap: 3rem;
+}

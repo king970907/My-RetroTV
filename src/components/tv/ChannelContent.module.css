@@ -1,0 +1,39 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #050a05;
+  color: var(--color-crt-white);
+  font-family: var(--font-retro);
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--accent, var(--color-crt-green));
+  margin-bottom: 12px;
+}
+
+.channelNum {
+  font-size: 0.75rem;
+  color: var(--accent, var(--color-crt-green));
+  letter-spacing: 0.15em;
+}
+
+.channelName {
+  font-size: 0.85rem;
+  color: var(--color-crt-white);
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+.body {
+  flex: 1;
+  overflow: hidden;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
