@@ -20,7 +20,7 @@ export function ProjectChannel({ project }: Props) {
         ))}
       </div>
 
-      <div className={styles.cta}>[ CLICK SCREEN TO OPEN ]</div>
+      <div className={styles.cta}>[ CLICK TO EXPAND ]</div>
     </div>
   )
 }

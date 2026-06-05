@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import RetroTV from '@/components/tv/RetroTV'
+import TVModal from '@/components/tv/TVModal'
 import CDPlayer from '@/components/cd/CDPlayer'
 import CDCase from '@/components/cd/CDCase'
 import type { Project } from '@/data/projects'
@@ -7,7 +8,11 @@ import styles from './MainScene.module.css'
 
 export default function MainScene() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [expandedChannelIndex, setExpandedChannelIndex] = useState(0)
   const stageRef = useRef<HTMLDivElement>(null)
+  const bezelRef = useRef<HTMLDivElement>(null)
+  const isExpandedRef = useRef(false)
 
   const target  = useRef({ scale: 1 })
   const current = useRef({ scale: 1 })
@@ -15,6 +20,7 @@ export default function MainScene() {
 
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
+      if (isExpandedRef.current) return
       e.preventDefault()
       target.current.scale = Math.max(
         0.55,
@@ -43,6 +49,17 @@ export default function MainScene() {
     }
   }, [])
 
+  const handleScreenClick = (channelIndex: number) => {
+    setExpandedChannelIndex(channelIndex)
+    setIsExpanded(true)
+    isExpandedRef.current = true
+  }
+
+  const handleModalClose = () => {
+    setIsExpanded(false)
+    isExpandedRef.current = false
+  }
+
   return (
     <div className={styles.scene}>
       <div className={styles.stage} ref={stageRef}>
@@ -51,6 +68,8 @@ export default function MainScene() {
           <RetroTV
             selectedProject={selectedProject}
             onProjectClose={() => setSelectedProject(null)}
+            onScreenClick={handleScreenClick}
+            bezelRef={bezelRef}
           />
           <CDPlayer />
         </div>
@@ -60,6 +79,14 @@ export default function MainScene() {
         </div>
 
       </div>
+
+      <TVModal
+        isOpen={isExpanded}
+        selectedProject={selectedProject}
+        activeChannelIndex={expandedChannelIndex}
+        bezelRef={bezelRef}
+        onClose={handleModalClose}
+      />
     </div>
   )
 }

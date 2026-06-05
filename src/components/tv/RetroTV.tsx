@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import type { RefObject } from 'react'
 import CRTScreen from './CRTScreen'
 import ChannelContent from './ChannelContent'
 import { ProjectChannel } from './ProjectChannel'
@@ -9,9 +10,11 @@ import styles from './RetroTV.module.css'
 interface Props {
   selectedProject: Project | null
   onProjectClose: () => void
+  onScreenClick: (channelIndex: number) => void
+  bezelRef: RefObject<HTMLDivElement>
 }
 
-export default function RetroTV({ selectedProject, onProjectClose }: Props) {
+export default function RetroTV({ selectedProject, onProjectClose, onScreenClick, bezelRef }: Props) {
   const [activeChannel, setActiveChannel] = useState(0)
   const [isSwitching, setIsSwitching] = useState(false)
   const isFirstRender = useRef(true)
@@ -43,12 +46,6 @@ export default function RetroTV({ selectedProject, onProjectClose }: Props) {
     switchChannel(next)
   }
 
-  const handleBezelClick = () => {
-    if (!selectedProject) return
-    window.open(selectedProject.url, '_blank', 'noopener,noreferrer')
-    onProjectClose()
-  }
-
   return (
     <div className={styles.tv}>
       <div className={styles.body}>
@@ -56,8 +53,9 @@ export default function RetroTV({ selectedProject, onProjectClose }: Props) {
         {/* Left — screen */}
         <div className={styles.screenPanel}>
           <div
-            className={`${styles.bezel} ${selectedProject ? styles.bezelClickable : ''}`}
-            onClick={handleBezelClick}
+            ref={bezelRef}
+            className={`${styles.bezel} ${styles.bezelClickable}`}
+            onClick={() => onScreenClick(activeChannel)}
           >
             <CRTScreen isSwitching={isSwitching}>
               {selectedProject
