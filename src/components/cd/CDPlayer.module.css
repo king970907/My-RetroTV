@@ -136,3 +136,10 @@
   background: #071407;
   color: var(--color-crt-green);
 }
+
+/* ⏏ active state when list is open */
+.btnActive {
+  background: #0d1f0d;
+  color: var(--color-crt-green);
+  border-color: rgba(57, 255, 20, 0.35);
+}

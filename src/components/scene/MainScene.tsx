@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import RetroTV from '@/components/tv/RetroTV'
 import TVModal from '@/components/tv/TVModal'
 import CDPlayer from '@/components/cd/CDPlayer'
-import CDCase from '@/components/cd/CDCase'
 import type { Project } from '@/data/projects'
 import styles from './MainScene.module.css'
 
@@ -71,11 +70,7 @@ export default function MainScene() {
             onScreenClick={handleScreenClick}
             bezelRef={bezelRef}
           />
-          <CDPlayer />
-        </div>
-
-        <div className={styles.caseSlot}>
-          <CDCase onProjectSelect={setSelectedProject} />
+          <CDPlayer onProjectSelect={setSelectedProject} />
         </div>
 
       </div>

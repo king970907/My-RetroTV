@@ -4,12 +4,12 @@ import styles from './CDSleeve.module.css'
 
 interface Props {
   project: Project
-  index: number
-  total: number
+  index?: number
+  total?: number
   onSelect: (project: Project) => void
 }
 
-export default function CDSleeve({ project, index, total, onSelect }: Props) {
+export default function CDSleeve({ project, index = 0, total = 1, onSelect }: Props) {
   const [isHovered, setIsHovered] = useState(false)
 
   const center = (total - 1) / 2
