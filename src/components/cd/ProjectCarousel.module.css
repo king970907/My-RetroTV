@@ -9,29 +9,13 @@
   perspective: 1200px;
 }
 
-/* Vertically-centered strip; overflow hidden clips items outside viewport */
-.carouselArea {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  /* disc pops up above the sleeve — allow it to show */
-  clip-path: inset(-200px 0 0 0);
-}
-
 .track {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  /* translateY(-50%) + translateX set by JS */
-  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 40px;
+  padding: 40px 120px;
   cursor: grab;
   user-select: none;
-  will-change: transform;
-  /* top padding so disc-out animation has room */
-  padding-top: 80px;
 }
 
 .track:active {
@@ -54,7 +38,6 @@
   align-items: center;
   justify-content: center;
   transition: border-color var(--transition-fast), color var(--transition-fast);
-  z-index: 1;
 }
 
 .closeBtn:hover {
