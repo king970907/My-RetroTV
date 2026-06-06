@@ -1,0 +1,30 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: var(--z-modal);
+  cursor: pointer;
+  transform-origin: center center;
+}
+
+.text {
+  position: absolute;
+  top: 48px;
+  left: 64px;
+  font-family: var(--font-body);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  color: #fff;
+  white-space: pre;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.cursor {
+  animation: blink 0.85s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}

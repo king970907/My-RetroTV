@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import BootScreen from '@/components/BootScreen'
 import MainScene from '@/components/scene/MainScene'
 import './styles/global.css'
 
@@ -7,12 +8,12 @@ export default function App() {
 
   return (
     <div className="app-root">
-      {!isReady && (
-        <div className="boot-screen" onClick={() => setIsReady(true)}>
-          <div className="boot-text">CLICK TO TURN ON</div>
+      {!isReady && <BootScreen onDone={() => setIsReady(true)} />}
+      {isReady && (
+        <div className="scene-fadein">
+          <MainScene />
         </div>
       )}
-      {isReady && <MainScene />}
     </div>
   )
 }
