@@ -70,7 +70,7 @@ export default function MainScene() {
             onScreenClick={handleScreenClick}
             bezelRef={bezelRef}
           />
-          <CDPlayer onProjectSelect={setSelectedProject} />
+          <CDPlayer selectedProject={selectedProject} onProjectSelect={setSelectedProject} />
         </div>
 
       </div>

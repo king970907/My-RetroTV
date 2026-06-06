@@ -79,7 +79,7 @@ export default function RetroTV({ selectedProject, onProjectClose, onScreenClick
             </button>
           ) : (
             /* Normal mode: channel knobs */
-            <>
+            <div className={styles.knobsWrapper}>
               <div className={styles.knobGroup}>
                 <button
                   className={styles.knob}
@@ -97,13 +97,13 @@ export default function RetroTV({ selectedProject, onProjectClose, onScreenClick
                 />
                 <span className={styles.knobLabel}>CH ▼</span>
               </div>
-            </>
+            </div>
           )}
 
           <div className={styles.decorRow}>
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className={styles.decorDot} />
-            ))}
+            <div className={styles.decorDot} />
+            <div className={styles.decorDot} />
+            <div className={styles.powerLed} />
           </div>
         </div>
 
