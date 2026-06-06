@@ -4,10 +4,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg);
+  background: #080808;
   background-image:
-    radial-gradient(ellipse 38% 50% at 36% 50%, rgba(57, 255, 20, 0.018) 0%, transparent 100%),
-    radial-gradient(ellipse 70% 55% at 50% 52%, #121008 0%, #0a0a0a 65%);
+    /* Warm white halo — neutral ambient backlight behind TV */
+    radial-gradient(ellipse 34% 56% at 35% 46%, rgba(220, 210, 180, 0.14) 0%, rgba(200, 190, 165, 0.05) 45%, transparent 70%),
+    /* Scene depth — subtle warm vignette */
+    radial-gradient(ellipse 75% 60% at 50% 52%, #0e0f0c 0%, #080808 65%);
   overflow: visible;
 }
 
@@ -18,7 +20,9 @@
   align-items: flex-end;
   gap: 28px;
   will-change: transform;
-  filter: drop-shadow(0 38px 52px rgba(0, 0, 0, 0.72));
+  filter:
+    drop-shadow(0 50px 70px rgba(0, 0, 0, 0.92))
+    drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
 }
 
 /* ── TV unit ── */
