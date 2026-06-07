@@ -1,11 +1,6 @@
-export interface Project {
-  id: string
-  title: string
-  description: string
-  tech: string[]
-  url: string
-  thumbnail?: string // path under /public/thumbnails/
-}
+import type { Project } from '@/cores/types/project'
+
+export type { Project }
 
 // TODO: Replace with real projects
 export const PROJECTS: Project[] = [

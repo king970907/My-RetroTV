@@ -1,11 +1,6 @@
-import type { ReactNode } from 'react'
+import type { Channel } from '@/cores/types/channel'
 
-export interface Channel {
-  id: number
-  name: string
-  color: string
-  component: ReactNode
-}
+export type { Channel }
 
 // TODO: Replace placeholder content with real personal info
 export const CHANNELS: Channel[] = [
