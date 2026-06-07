@@ -16,10 +16,27 @@ See README.md for full concept and component map.
 
 ## Data Layer
 
-- `src/data/channels.ts` — `Channel[]` — id, name, color, component (ReactNode)
-- `src/data/projects.ts` — `Project[]` — id, title, description, tech[], url, thumbnail?
+- `src/data/channels.ts` — `CHANNELS: Channel[]` — id, name, color, component (ReactNode)
+- `src/data/projects.ts` — `PROJECTS: Project[]` — id, title, description, tech[], url, thumbnail?
 - Thumbnails: `public/thumbnails/<id>.webp` (WebP, max 400×400)
 - No API calls — everything is static
+
+## Cores
+
+Shared constants and types used across multiple components live in `src/cores/`:
+
+| Path | Contents |
+|------|---------|
+| `src/cores/types/project.ts` | `Project` interface |
+| `src/cores/types/channel.ts` | `Channel` interface |
+| `src/cores/const/carousel.ts` | `ITEM_STEP`, coverflow visual tuning constants |
+| `src/cores/const/scene.ts` | `ZOOM_MIN/MAX`, wheel sensitivity, lerp factor |
+
+Rules:
+- Always import types from `@/cores/types/<file>`, not from `@/data/`
+- Always import shared numeric constants from `@/cores/const/<file>`
+- Do **not** create barrel `index.ts` files inside `src/cores/` — import from the concrete module path
+- Component-local magic numbers (animation timers, one-off offsets) do not need to move here; only values shared across ≥ 2 files or that form a coherent tuning set belong in cores
 
 ## Git
 

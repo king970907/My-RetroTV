@@ -21,4 +21,6 @@
 - `src/components/scene/` — layout shells only, no business logic
 - `src/components/tv/` — all CRT/TV concerns
 - `src/components/cd/` — all CD Player/Sleeve/Case concerns
-- `src/data/` — plain TypeScript objects, never async/fetch
+- `src/data/` — plain TypeScript data arrays (`PROJECTS`, `CHANNELS`), never async/fetch
+- `src/cores/types/` — shared TypeScript interfaces (`Project`, `Channel`) — import from here, not from `src/data/`
+- `src/cores/const/` — named numeric constants shared across ≥ 2 files or forming a coherent tuning set
