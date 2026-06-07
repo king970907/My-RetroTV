@@ -1,26 +1,39 @@
 import { useState } from 'react'
-import type { Project } from '@/data/projects'
+import type { Project } from '@/cores/types/project'
+import {
+  ITEM_STEP,
+  COVERFLOW_ROTATE_MAX,
+  COVERFLOW_SCALE_RATE,
+  COVERFLOW_SCALE_MIN,
+  COVERFLOW_DEPTH,
+  COVERFLOW_BRIGHTNESS_RATE,
+  COVERFLOW_BRIGHTNESS_MIN,
+} from '@/cores/const/carousel'
 import styles from './CDSleeve.module.css'
 
 interface Props {
   project: Project
-  index: number
-  total: number
+  distFromCenter: number // pixels from viewport center; positive = right of center
   onSelect: (project: Project) => void
 }
 
-export default function CDSleeve({ project, index, total, onSelect }: Props) {
+export default function CDSleeve({ project, distFromCenter, onSelect }: Props) {
   const [isHovered, setIsHovered] = useState(false)
 
-  const center = (total - 1) / 2
-  const offset = index - center
-  const rotateY = offset * -8
-  const translateZ = Math.abs(offset) * -30
+  const t = distFromCenter / ITEM_STEP
+  const tAbs = Math.abs(t)
+  const rotateY = Math.max(-1, Math.min(1, t)) * -COVERFLOW_ROTATE_MAX
+  const scale = Math.max(1 - tAbs * COVERFLOW_SCALE_RATE, COVERFLOW_SCALE_MIN)
+  const translateZ = -Math.min(tAbs, 2) * COVERFLOW_DEPTH
+  const brightness = Math.max(1 - tAbs * COVERFLOW_BRIGHTNESS_RATE, COVERFLOW_BRIGHTNESS_MIN)
 
   return (
     <div
       className={styles.sleeveWrapper}
-      style={{ transform: `rotateY(${rotateY}deg) translateZ(${translateZ}px)` }}
+      style={{
+        transform: `rotateY(${rotateY}deg) translateZ(${translateZ}px) scale(${scale})`,
+        filter: `brightness(${brightness})`,
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

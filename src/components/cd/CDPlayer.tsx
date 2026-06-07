@@ -1,23 +1,32 @@
 import { useEffect, useRef, useState } from 'react'
 import ProjectCarousel from './ProjectCarousel'
-import type { Project } from '@/data/projects'
+import type { Project } from '@/cores/types/project'
 import styles from './CDPlayer.module.css'
 
 interface Props {
   selectedProject: Project | null
-  onProjectSelect: (project: Project) => void
+  onProjectSelect: (project: Project | null) => void
 }
 
 export default function CDPlayer({ selectedProject, onProjectSelect }: Props) {
+  const [loadedProject, setLoadedProject] = useState<Project | null>(null)
   const [isTrayOpen, setIsTrayOpen] = useState(false)
   const [isListOpen, setIsListOpen] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Clear playback state when project is deselected (BACK pressed)
+  const isPlaying = selectedProject !== null && selectedProject.id === loadedProject?.id
+
+  // Sync loadedProject when selectedProject is changed externally (e.g. TV knob switching projects).
+  // Also closes the carousel if it happens to be open — keeps UI consistent.
   useEffect(() => {
-    if (!selectedProject) setIsPlaying(false)
+    if (selectedProject && selectedProject.id !== loadedProject?.id) {
+      setLoadedProject(selectedProject)
+      if (isListOpen) closeList()
+    }
   }, [selectedProject])
+
+  // Cancel any pending tray timer on unmount to prevent stale setState calls
+  useEffect(() => () => clearTimer(), [])
 
   const clearTimer = () => { if (timerRef.current) clearTimeout(timerRef.current) }
 
@@ -27,6 +36,7 @@ export default function CDPlayer({ selectedProject, onProjectSelect }: Props) {
       setIsListOpen(false)
       timerRef.current = setTimeout(() => setIsTrayOpen(false), 250)
     } else {
+      if (isPlaying) onProjectSelect(null)
       setIsTrayOpen(true)
       timerRef.current = setTimeout(() => setIsListOpen(true), 500)
     }
@@ -40,24 +50,21 @@ export default function CDPlayer({ selectedProject, onProjectSelect }: Props) {
 
   const handleSelect = (project: Project) => {
     closeList()
-    setIsPlaying(false)
-    onProjectSelect(project)
+    setLoadedProject(project)
   }
 
   const handlePlay = () => {
-    if (!selectedProject) return
-    setIsPlaying(prev => !prev)
+    if (!loadedProject) return
+    onProjectSelect(isPlaying ? null : loadedProject)
   }
 
   return (
     <div className={styles.player}>
-      {/* Brand label */}
       <div className={styles.brand}>RETRO · CD</div>
 
-      {/* Tray window */}
       <div className={styles.trayArea}>
         <div className={`${styles.tray} ${isTrayOpen ? styles.open : ''}`}>
-          {selectedProject && (
+          {loadedProject && (
             <div className={`${styles.disc} ${isPlaying ? styles.spinning : ''}`}>
               <div className={styles.discCenter} />
             </div>
@@ -65,12 +72,10 @@ export default function CDPlayer({ selectedProject, onProjectSelect }: Props) {
         </div>
       </div>
 
-      {/* Display */}
       <div className={styles.display}>
-        <span>{selectedProject?.title ?? '---'}</span>
+        <span>{loadedProject?.title ?? '---'}</span>
       </div>
 
-      {/* Controls */}
       <div className={styles.controls}>
         <button
           className={`${styles.btn} ${isTrayOpen ? styles.btnActive : ''}`}
@@ -82,7 +87,7 @@ export default function CDPlayer({ selectedProject, onProjectSelect }: Props) {
         <button
           className={`${styles.btn} ${styles.playBtn}`}
           onClick={handlePlay}
-          disabled={!selectedProject}
+          disabled={!loadedProject}
           aria-label={isPlaying ? 'Pause' : 'Play'}
         >
           {isPlaying ? '⏸' : '▶'}

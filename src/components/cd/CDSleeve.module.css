@@ -4,13 +4,7 @@
   width: 200px;
   /* padding-bottom reserves space for the CTA so it stays inside the hover zone */
   padding-bottom: 38px;
-  transition: transform var(--transition-med);
   transform-style: preserve-3d;
-}
-
-.sleeveWrapper:hover {
-  transform: scale(1.06) !important;
-  z-index: 10;
 }
 
 /* ── CD disc ── */

@@ -16,6 +16,7 @@
   padding: 40px 120px;
   cursor: grab;
   user-select: none;
+  transform-style: preserve-3d;
 }
 
 .track:active {
