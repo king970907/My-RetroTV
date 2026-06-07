@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import RetroTV from '@/components/tv/RetroTV'
 import TVModal from '@/components/tv/TVModal'
 import CDPlayer from '@/components/cd/CDPlayer'
-import type { Project } from '@/data/projects'
+import { PROJECTS } from '@/data/projects'
+import type { Project } from '@/cores/types/project'
+import { ZOOM_MIN, ZOOM_MAX, ZOOM_WHEEL_SENSITIVITY, ZOOM_LERP_FACTOR } from '@/cores/const/scene'
 import styles from './MainScene.module.css'
 
 export default function MainScene() {
@@ -22,15 +24,15 @@ export default function MainScene() {
       if (isExpandedRef.current) return
       e.preventDefault()
       target.current.scale = Math.max(
-        0.55,
-        Math.min(1.35, target.current.scale - e.deltaY * 0.0008)
+        ZOOM_MIN,
+        Math.min(ZOOM_MAX, target.current.scale - e.deltaY * ZOOM_WHEEL_SENSITIVITY)
       )
     }
 
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
     const tick = () => {
-      current.current.scale = lerp(current.current.scale, target.current.scale, 0.08)
+      current.current.scale = lerp(current.current.scale, target.current.scale, ZOOM_LERP_FACTOR)
 
       if (stageRef.current) {
         stageRef.current.style.transform = `scale(${current.current.scale.toFixed(4)})`
@@ -54,6 +56,15 @@ export default function MainScene() {
     isExpandedRef.current = true
   }
 
+  const handleProjectKnob = (direction: 'prev' | 'next') => {
+    if (!selectedProject) return
+    const idx = PROJECTS.findIndex(p => p.id === selectedProject.id)
+    const next = direction === 'next'
+      ? (idx + 1) % PROJECTS.length
+      : (idx - 1 + PROJECTS.length) % PROJECTS.length
+    setSelectedProject(PROJECTS[next])
+  }
+
   const handleModalClose = () => {
     setIsExpanded(false)
     isExpandedRef.current = false
@@ -66,7 +77,7 @@ export default function MainScene() {
         <div className={styles.tvUnit}>
           <RetroTV
             selectedProject={selectedProject}
-            onProjectClose={() => setSelectedProject(null)}
+            onProjectKnob={handleProjectKnob}
             onScreenClick={handleScreenClick}
             bezelRef={bezelRef}
           />

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import gsap from 'gsap'
-import type { Project } from '@/data/projects'
-import type { Channel } from '@/data/channels'
+import type { Project } from '@/cores/types/project'
+import type { Channel } from '@/cores/types/channel'
 import { CHANNELS } from '@/data/channels'
 import styles from './TVModal.module.css'
 

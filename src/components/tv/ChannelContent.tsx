@@ -1,4 +1,4 @@
-import type { Channel } from '@/data/channels'
+import type { Channel } from '@/cores/types/channel'
 import styles from './ChannelContent.module.css'
 
 interface Props {

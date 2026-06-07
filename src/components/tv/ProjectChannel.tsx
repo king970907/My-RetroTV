@@ -1,4 +1,4 @@
-import type { Project } from '@/data/projects'
+import type { Project } from '@/cores/types/project'
 import styles from './ProjectChannel.module.css'
 
 interface Props {
